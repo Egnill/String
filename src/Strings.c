@@ -28,70 +28,69 @@ int sspn(const char *p, int u)
 
 int check_number(char *q, char token)
 {
-	int i = 0, o = 0;
+	int i = 1, o = 0;
 
 	while (*(q + i) != token) {
-		if (*(q + i) < '0' && *(q + i) > '9') {
+		if (*(q + i) >= '0' && *(q + i) <= '9') {
 			++o;
 		}
 		++i;
 	}
 
-	if (o == 0) {
+	if (o == i - 1) {
 		return 0;
 	} else {
 		return 1;
 	}
 }
 
-void number(char *q, char token)
+void number(char *q, int i_2, char token)
 {
 	int number = 0;
-	int st = 1, i = 0, j = 0;
+	int st = 1, i = 1, j = 0;
 
-	while (*(q + i) != token) {
+	while (*(q + i_2 + i) != token) {
 		++j;
 		++i;
 	}
 
-	++j;
+	--i;
 
-	while (*(q + i) != token) {
-		number = number + *(q + i) * st;
+	while (*(q + i_2 + i) != token) {
+		number = number + (*(q + i_2 + i) - '0') * st;
 		st *= 10;
 		--i;
 	}
 
+	i = 0;
 	number += 1;
 
+	int j_2 = 0;
 	int number_2 = number;
 
 	while (number_2 != 0) {
-		++i;
+		++j_2;
 		number_2 /= 10;
 	}
-
-	++i;
 	
-	if (j == i) {
+	if (j == j_2) {
 		while (number != 0) {
-			*(q + i - 1) = (number % 10) + '0';
+			*(q + i_2 + j_2) = (number % 10) + '0';
 			number /= 10;
-			--i;
+			--j_2;
 		}
-	} else {
-		if (j > i) {
-			i = slen(q, '\0');
-			*(q + i + 1) = '\0';
-			for ( ; i > 0; --i) {
-				*(q + i) = *(q + i - 1);
-			}
-
-			while (number != 0) {
-				*(q + j - 1) = (number % 10) + '0';
-				number /= 10;
-				--j;
-			}
+	}
+	
+	if (j_2 > j) {
+		i = slen(q + i_2, '\0');
+		*(q	+ i_2 + i + 1) = '\0';
+		for ( ; i > 0; --i) {
+			*(q + i_2 + i) = *(q + i_2 + i - 1);
+		}
+		while (number != 0) {
+			*(q + i_2 + j_2) = (number % 10) + '0';
+			number /= 10;
+			--j_2;
 		}
 	}
 }

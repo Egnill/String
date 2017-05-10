@@ -16,8 +16,6 @@ char *input(char *q)
         }
 	}
 
-	
-	
 	return q;
 }
 
@@ -28,24 +26,24 @@ int check(const char *q, char sistem)
 	if (slen(q, '\0') > MAX_PATH) {
 		printf("Max!!\n");
 		return 1;
+	} else {	
+		if (sistem == 'w') {
+			z = sspn(q, 2);
+			if (z != 0) {
+				printf("ERROR, index %d\n", z);
+				return 1;
+			}
+		}
+
+		if (sistem == 'l') {
+			z = sspn(q, 0);
+			if (z != 0) {
+				printf("ERROR, index %d\n", z);
+				return 1;
+			}
+		}
 	}
 	
-	if (sistem == 'w') {
-		z = sspn(q, 2);
-		if (z != 0) {
-			printf("ERROR, index %d", z);
-			return 1;
-		}
-	}
-
-	if (sistem == 'l') {
-		z = sspn(q, 0);
-		if (z != 0) {
-			printf("ERROR, index %d", z);
-			return 1;
-		}
-	}
-
 	return 0;
 }
 
@@ -53,7 +51,6 @@ void process(char *q)
 {
 	q = input(q);
 
-	//if (q != NULL) {
 	char sistem;
 
 	if (*q == '/') {
@@ -69,10 +66,10 @@ void process(char *q)
 	int r = check(q, sistem);
 
 	if (r == 0) {
-		q = number_switch(q, sistem);
-		
+		number_switch(q, sistem);
+
 		int token = slen(q, '\0');
-	
+
 		if (sistem == 'l') {
 			while (q[token] != '/') {
 				--token;
@@ -83,8 +80,8 @@ void process(char *q)
 					--token;
 				}
 			}
-		}	
-	
+		}
+
 		int l = slen(&q[token], '\0') - 1;
 		
 		output(q, l, token, sistem);
@@ -93,8 +90,11 @@ void process(char *q)
 	}
 }
 
-void output(const char *q, int l, int token, char sistem)
+void output(char *q, int l, int token, char sistem)
 {
+	char *q_2;
+	q_2 = q;
+
 	if (sistem == 'l') {
 		printf("OS: Linux\n");
 	}
@@ -106,34 +106,32 @@ void output(const char *q, int l, int token, char sistem)
 	printf("file name: %s\n", (q + token + 1));
 	printf("file name lenth: %d\n", l);
 
-	printf("updated path: %s\n", q);
+	printf("updated path: %s\n", q_2);
 }
 
-char *number_switch(char *q, char sistem)
+void number_switch(char *q, char sistem)
 {
-	//int i = 0;
+	int i = 0;
 
 	if (sistem == 'l') {
-		while (*q != '\0') {
-			if (*q == '/'){
-				if (check_number(q + 1, '/') == 0) {
-					number(q + 1, '/');
+		while (*(q + i) != '\0') {
+			if (*(q + i) == '/'){
+				if (check_number(q + i, '/') == 0) {
+					number(q, i, '/');
 				}
 			}
-			++q;
+			++i;
 		}
 	} else {
 		if (sistem == 'w') {
-			while (*q != '\0') {
-				if (*q == 92){
-					if (check_number(q + 1, 92) == 0) {
-						number(q + 1, 92);
+			while (*(q + i) != '\0') {
+				if (*(q + i) == 92){
+					if (check_number(q + i, 92) == 0) {
+						number(q, i, 92);
 					}
 				}
-				++q;
+				++i;
 			}
 		}
 	}
-
-	return q;
 }
