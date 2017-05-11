@@ -31,3 +31,7 @@
 # Debug files
 *.dSYM/
 *.su
+
+bin/
+bin/.nfs0000000000c581f90000000e
+bin/.nfs0000000000c585ee0000000f

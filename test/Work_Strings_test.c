@@ -9,7 +9,7 @@ CTEST(arithmetic_suite, income_slen_1)
 	ASSERT_EQUAL(expected, result);
 }
 
-CTEST(arithmetic_suite, income_slen_1)
+CTEST(arithmetic_suite, income_slen_2)
 {
 	const int result = slen("qwerty/daa", '/');
 	const int expected = 6;
@@ -39,28 +39,28 @@ CTEST(arithmetic_suite, income_sspn_3)
 
 CTEST(arithmetic_suite, income_check_number_1)
 {
-	const int result = check_number("qwert", '\0');
+	const int result = check_number("qwert", 0, '\0');
 	const int expected = 1;
 	ASSERT_EQUAL(expected, result);
 }
 
 CTEST(arithmetic_suite, income_check_number_2)
 {
-	const int result = check_number("qwe12qwe", '\0');
+	const int result = check_number("qwe12qwe", 0, '\0');
 	const int expected = 1;
 	ASSERT_EQUAL(expected, result);
 }
 
 CTEST(arithmetic_suite, income_check_number_3)
 {
-	const int result = check_number("123456", '\0');
+	const int result = check_number("123456", 0, '\0');
 	const int expected = 0;
 	ASSERT_EQUAL(expected, result);
 }
 
 CTEST(arithmetic_suite, income_check_number_4)
 {
-	const int result = check_number("12345as678", '\0');
+	const int result = check_number("12345as678", 0, '\0');
 	const int expected = 1;
 	ASSERT_EQUAL(expected, result);
 }
@@ -82,14 +82,14 @@ CTEST(arithmetic_suite, income_check_2)
 CTEST(arithmetic_suite, income_check_3)
 {
 	const int result = check("/qwert/asd*dddddd/dasdd.c", 'l');
-	const int expected = 10;
+	const int expected = 1;
 	ASSERT_EQUAL(expected, result);
 }
 
 CTEST(arithmetic_suite, income_check_4)
 {
 	const int result = check("/qwert|asddddddd/dasdd.c", 'l');
-	const int expected = 6;
+	const int expected = 1;
 	ASSERT_EQUAL(expected, result);
 }
 

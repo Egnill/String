@@ -26,12 +26,12 @@ int sspn(const char *p, int u)
 	return 0;
 }
 
-int check_number(char *q, char token)
+int check_number(char *q, int i_2, char token)
 {
 	int i = 1, o = 0;
 
-	while (*(q + i) != token) {
-		if (*(q + i) >= '0' && *(q + i) <= '9') {
+	while (*(q + i_2 + i) != token) {
+		if (*(q + i_2 + i) >= '0' && *(q + i_2 + i) <= '9') {
 			++o;
 		}
 		++i;
@@ -44,10 +44,12 @@ int check_number(char *q, char token)
 	}
 }
 
-void number(char *q, int i_2, char token)
+void number(char *q_2, int i_2, char token)
 {
 	int number = 0;
 	int st = 1, i = 1, j = 0;
+	char *q;
+	q = q_2;
 
 	while (*(q + i_2 + i) != token) {
 		++j;
@@ -79,18 +81,22 @@ void number(char *q, int i_2, char token)
 			number /= 10;
 			--j_2;
 		}
-	}
-	
-	if (j_2 > j) {
-		i = slen(q + i_2, '\0');
-		*(q	+ i_2 + i + 1) = '\0';
-		for ( ; i > 0; --i) {
-			*(q + i_2 + i) = *(q + i_2 + i - 1);
-		}
-		while (number != 0) {
-			*(q + i_2 + j_2) = (number % 10) + '0';
-			number /= 10;
-			--j_2;
+		q_2 = q;
+		printf("%s\n", q);
+	} else {
+		if (j_2 > j) {
+			i = slen(q + i_2, '\0');
+			*(q	+ i_2 + i + 1) = '\0';
+			for ( ; i > 0; --i) {
+				*(q + i_2 + i) = *(q + i_2 + i - 1);
+			}
+			while (number != 0) {
+				*(q + i_2 + j_2) = (number % 10) + '0';
+				number /= 10;
+				--j_2;
+			}
+			q_2 = q;
+			printf("%s\n", q);
 		}
 	}
 }

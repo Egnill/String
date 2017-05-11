@@ -52,14 +52,17 @@ void process(char *q)
 	q = input(q);
 
 	char sistem;
+	int i = 1;
 
 	if (*q == '/') {
 		sistem = 'l';
 	
 	} else {
-		if (*q >= 'A' && *q <= 'Z') {
-			sistem = 'w';
-		
+		while (*(q + i) != 92) {
+			if (*(q + 0) >= 'A' && *(q + 0) <= 'Z' && ((*(q + i) >= 'a' && *(q + i) <= 'z') || (*(q + i) >= 'A' && *(q + i) <= 'Z') || (*(q + i) == ':'))) {
+				sistem = 'w';
+			}
+			++i;
 		}
 	}
 
@@ -85,8 +88,6 @@ void process(char *q)
 		int l = slen(&q[token], '\0') - 1;
 		
 		output(q, l, token, sistem);
-	} else {
-		printf("ERROR!\n");
 	}
 }
 
@@ -106,7 +107,14 @@ void output(char *q, int l, int token, char sistem)
 	printf("file name: %s\n", (q + token + 1));
 	printf("file name lenth: %d\n", l);
 
-	printf("updated path: %s\n", q_2);
+	int i = 0;
+	//printf("updated path: %s\n", q_2);
+	printf("updated path: ");
+	while (*(q_2 + i) != '\0') {
+		printf("%c", *(q_2 + i));
+		++i;
+	}
+	printf("\n");
 }
 
 void number_switch(char *q, char sistem)
@@ -116,7 +124,7 @@ void number_switch(char *q, char sistem)
 	if (sistem == 'l') {
 		while (*(q + i) != '\0') {
 			if (*(q + i) == '/'){
-				if (check_number(q + i, '/') == 0) {
+				if (check_number(q, i, '/') == 0) {
 					number(q, i, '/');
 				}
 			}
@@ -126,7 +134,7 @@ void number_switch(char *q, char sistem)
 		if (sistem == 'w') {
 			while (*(q + i) != '\0') {
 				if (*(q + i) == 92){
-					if (check_number(q + i, 92) == 0) {
+					if (check_number(q, i, 92) == 0) {
 						number(q, i, 92);
 					}
 				}
