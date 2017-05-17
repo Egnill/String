@@ -18,21 +18,21 @@ CTEST(arithmetic_suite, income_slen_2)
 
 CTEST(arithmetic_suite, income_sspn_1)
 {
-	const int result = sspn("qwert", 0);
+	const int result = sspn("qwert");
 	const int expected = 0;
 	ASSERT_EQUAL(expected, result);
 }
 
 CTEST(arithmetic_suite, income_sspn_2)
 {
-	const int result = sspn("qwe*rt", 0);
+	const int result = sspn("qwe*rt");
 	const int expected = 3;
 	ASSERT_EQUAL(expected, result);
 }
 
 CTEST(arithmetic_suite, income_sspn_3)
 {
-	const int result = sspn("qwert/sdfa|asd", 0);
+	const int result = sspn("qwert/sdfa|asd");
 	const int expected = 10;
 	ASSERT_EQUAL(expected, result);
 }
@@ -67,42 +67,42 @@ CTEST(arithmetic_suite, income_check_number_4)
 
 CTEST(arithmetic_suite, income_check_1)
 {
-	const int result = check("/qwert/asddddddd/dasdd.c", 'l');
+	const int result = check("/qwert/asddddddd/dasdd.c");
 	const int expected = 0;
 	ASSERT_EQUAL(expected, result);
 }
 
 CTEST(arithmetic_suite, income_check_2)
 {
-	const int result = check("/wer/tyui/12345/eqw/qwe/fg/dfa/1225/zxc/adf2sdfs/sdfsdgsdgbnshfgdhdsghjsdjkgsjkdgkjs/qwerhnbiusifbsfds/12344893265/sdgsjdnislerubnsegtbiunbetgniebtbiuns/fsdfsdfsdfsdfsdgsdg/wekjsdhnb2321/ffdsfsdfwerojbifndsigsihnb516971548/fdstgbsnsigfsubt/dgfsdibnsutsfdgnbrdf.c", 'l');
+	const int result = check("/wer/tyui/12345/eqw/qwe/fg/dfa/1225/zxc/adf2sdfs/sdfsdgsdgbnshfgdhdsghjsdjkgsjkdgkjs/qwerhnbiusifbsfds/12344893265/sdgsjdnislerubnsegtbiunbetgniebtbiuns/fsdfsdfsdfsdfsdgsdg/wekjsdhnb2321/ffdsfsdfwerojbifndsigsihnb516971548/fdstgbsnsigfsubt/dgfsdibnsutsfdgnbrdf.c");
 	const int expected = 1;
 	ASSERT_EQUAL(expected, result);
 }
 
 CTEST(arithmetic_suite, income_check_3)
 {
-	const int result = check("/qwert/asd*dddddd/dasdd.c", 'l');
+	const int result = check("/qwert/asd*dddddd/dasdd.c");
 	const int expected = 1;
 	ASSERT_EQUAL(expected, result);
 }
 
 CTEST(arithmetic_suite, income_check_4)
 {
-	const int result = check("/qwert|asddddddd/dasdd.c", 'l');
+	const int result = check("/qwert|asddddddd/dasdd.c");
 	const int expected = 1;
 	ASSERT_EQUAL(expected, result);
 }
 
 CTEST(arithmetic_suite, income_check_5)
 {
-	const int result = check("Ca:\\dasdsfdsafksdf\\sdfsdjfsdhgfsjd\\sdgfsd.c", 'l');
+	const int result = check("Ca:\\dasdsfdsafksdf\\sdfsdjfsdhgfsjd\\sdgfsd.c");
 	const int expected = 0;
 	ASSERT_EQUAL(expected, result);
 }
 
 CTEST(arithmetic_suite, income_check_6)
 {
-	const int result = check("CA:\\dasd\\g44|dasdas\\dasd.c", 'l');
+	const int result = check("CA:\\dasd\\g44|dasdas\\dasd.c");
 	const int expected = 1;
 	ASSERT_EQUAL(expected, result);
 }

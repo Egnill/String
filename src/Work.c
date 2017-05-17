@@ -19,7 +19,7 @@ char *input(char *q)
 	return q;
 }
 
-int check(const char *q, char sistem)
+int check(const char *q)
 {	
 	int z;
 
@@ -27,20 +27,10 @@ int check(const char *q, char sistem)
 		printf("Max!!\n");
 		return 1;
 	} else {	
-		if (sistem == 'w') {
-			z = sspn(q, 2);
-			if (z != 0) {
-				printf("ERROR, index %d\n", z);
-				return 1;
-			}
-		}
-
-		if (sistem == 'l') {
-			z = sspn(q, 0);
-			if (z != 0) {
-				printf("ERROR, index %d\n", z);
-				return 1;
-			}
+		z = sspn(q);
+		if (z != 0) {
+			printf("ERROR, index %d\n", z + 1);
+			return 1;
 		}
 	}
 	
@@ -54,21 +44,22 @@ void process(char *q)
 	char sistem;
 	int i = 1;
 
-	if (*q == '/') {
-		sistem = 'l';
-	
-	} else {
-		while (*(q + i) != 92) {
-			if (*(q + 0) >= 'A' && *(q + 0) <= 'Z' && ((*(q + i) >= 'a' && *(q + i) <= 'z') || (*(q + i) >= 'A' && *(q + i) <= 'Z') || (*(q + i) == ':'))) {
-				sistem = 'w';
-			}
-			++i;
-		}
-	}
-
-	int r = check(q, sistem);
+	int r = check(q);
 
 	if (r == 0) {
+
+		if (*q == '/') {
+			sistem = 'l';
+		
+		} else {
+			while (*(q + i) != 92) {
+				if (*(q + 0) >= 'A' && *(q + 0) <= 'Z' && ((*(q + i) >= 'a' && *(q + i) <= 'z') || (*(q + i) >= 'A' && *(q + i) <= 'Z') || (*(q + i) == ':'))) {
+					sistem = 'w';
+				}
+				++i;
+			}
+		}
+
 		number_switch(q, sistem);
 
 		int token = slen(q, '\0');
@@ -86,7 +77,7 @@ void process(char *q)
 		}
 
 		int l = slen(&q[token], '\0') - 1;
-		
+	
 		output(q, l, token, sistem);
 	}
 }
@@ -107,20 +98,13 @@ void output(char *q, int l, int token, char sistem)
 	printf("file name: %s\n", (q + token + 1));
 	printf("file name lenth: %d\n", l);
 
-	int i = 0;
-	//printf("updated path: %s\n", q_2);
-	printf("updated path: ");
-	while (*(q_2 + i) != '\0') {
-		printf("%c", *(q_2 + i));
-		++i;
-	}
-	printf("\n");
+	printf("updated path: %s\n", q_2);
 }
 
 void number_switch(char *q, char sistem)
 {
 	int i = 0;
-
+//printf("+\n");
 	if (sistem == 'l') {
 		while (*(q + i) != '\0') {
 			if (*(q + i) == '/'){
@@ -130,16 +114,17 @@ void number_switch(char *q, char sistem)
 			}
 			++i;
 		}
-	} else {
-		if (sistem == 'w') {
-			while (*(q + i) != '\0') {
-				if (*(q + i) == 92){
-					if (check_number(q, i, 92) == 0) {
-						number(q, i, 92);
-					}
+	}
+	
+	if (sistem == 'w') {
+		//printf("+\n");
+		while (*(q + i) != '\0') {
+			if (*(q + i) == 92){
+				if (check_number(q, i, 92) == 0) {
+					number(q, i, 92);
 				}
-				++i;
 			}
+			++i;
 		}
 	}
 }

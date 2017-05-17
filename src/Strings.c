@@ -10,11 +10,11 @@ int slen(const char *q, char token)
 	return i;
 }
 
-int sspn(const char *p, int u)
+int sspn(const char *p)
 {
-	char z[] = {'*', '?', '"', '<', '>', '|', '\0'};
+	char z[] = {';', '*', '?', '"', '<', '>', '|', '\0'};
 
-	for (int i = u; p[i] != '\0'; ++i) {
+	for (int i = 0; p[i] != '\0'; ++i) {
 		for (int j = 0; z[j] != '\0'; ++j) {
 			if (p[i] == z[j]) {
 				return i;
@@ -82,7 +82,7 @@ void number(char *q_2, int i_2, char token)
 			--j_2;
 		}
 		q_2 = q;
-		printf("%s\n", q);
+		//printf("%s\n", q);
 	} else {
 		if (j_2 > j) {
 			i = slen(q + i_2, '\0');
@@ -96,7 +96,7 @@ void number(char *q_2, int i_2, char token)
 				--j_2;
 			}
 			q_2 = q;
-			printf("%s\n", q);
+			//printf("%s\n", q);
 		}
 	}
 }

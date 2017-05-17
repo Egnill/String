@@ -8,7 +8,13 @@ EXE_TEST := bin/String_test
 LFLAGS := -I thirdparty -I src -c
 
  
-all: $(EXE_TEST) $(TARGET)
+all: creat $(EXE_TEST) $(TARGET)
+
+creat:
+	mkdir bin
+	mkdir build
+	mkdir build/test
+	mkdir build/src
 
 $(TARGET): build/src/main.o build/src/Work.o build/src/Strings.o
 	$(CC) build/src/main.o build/src/Work.o build/src/Strings.o -o $@
@@ -33,6 +39,5 @@ build/test/main.o: test/main.c
 
 .PHONY: all clean
 clean:
-	rm -f build/src/*.o
-	rm -f build/test/*.o
-	rm -f bin/*
+	rm -r bin
+	rm -r build
