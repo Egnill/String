@@ -76,8 +76,9 @@ void number(char *q_2, int i_2, char token)
 	}
 	
 	if (j > j_2) {
+		j -= j_2;
 		while (number != 0) {
-			*(q + i_2 + j - j_2 + 1) = (number % 10) + '0';
+			*(q + i_2 + j + j_2) = (number % 10) + '0';
 			number /= 10;
 			--j_2;
 		}
