@@ -42,7 +42,7 @@ void process(char *q)
 	q = input(q);
 
 	char sistem;
-	int i = 1;
+	int i = 1, o = 0;
 
 	int r = check(q);
 
@@ -50,35 +50,68 @@ void process(char *q)
 
 		if (*q == '/') {
 			sistem = 'l';
-		
 		} else {
-			while (*(q + i) != 92) {
-				if (*(q + 0) >= 'A' && *(q + 0) <= 'Z' && ((*(q + i) >= 'a' && *(q + i) <= 'z') || (*(q + i) >= 'A' && *(q + i) <= 'Z') || (*(q + i) == ':'))) {
-					sistem = 'w';
+			if (*q != '/') {
+				o = 1;
+			} else {
+				while (*(q + i) != ':') {
+					if ((*(q + 0) >= 'A' && *(q + 0) <= 'Z') && ((*(q + i) >= 'a' && *(q + i) <= 'z') || (*(q + i) >= 'A' && *(q + i) <= 'Z'))) {
+						sistem = 'w';
+					}
+
+					if (*(q + i) != ':' && *(q + i + 1) == 92) {
+						o = 1;
+						break;
+					}
+					++i;
+				}
+			}
+		}
+
+		i = 0;
+		if (sistem == 'l') {
+			while (*(q + i) != '\0') {
+				if (*(q + i) == 92) {
+					o = 1;
+					break;
 				}
 				++i;
 			}
 		}
 
-		number_switch(q, sistem);
-
-		int token = slen(q, '\0');
-
-		if (sistem == 'l') {
-			while (q[token] != '/') {
-				--token;
-			}
-		} else {
-			if (sistem == 'w') {
-				while (q[token] != 92) {
-					--token;
+		if (sistem == 'w') {
+			while (*(q + i) != '\0') {
+				if (*(q + i) == '/') {
+					o = 1;
+					break;
 				}
+				++i;
 			}
 		}
 
-		int l = slen(&q[token], '\0') - 1;
+		if (o == 0) {
+			number_switch(q, sistem);
+
+			int token = slen(q, '\0');
+
+			if (sistem == 'l') {
+				while (q[token] != '/') {
+					--token;
+				}
+			} else {
+				if (sistem == 'w') {
+					while (q[token] != 92) {
+						--token;
+					}
+				}
+			}
+
+			int l = slen(&q[token], '\0') - 1;
 	
-		output(q, l, token, sistem);
+			output(q, l, token, sistem);
+		} else {
+			printf("ERROR!\n");
+		}
 	}
 }
 

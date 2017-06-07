@@ -8,13 +8,7 @@ EXE_TEST := bin/String_test
 LFLAGS := -I thirdparty -I src -c
 
  
-all: creat $(EXE_TEST) $(TARGET)
-
-creat:
-	mkdir bin
-	mkdir build
-	mkdir build/test
-	mkdir build/src
+all: $(EXE_TEST) $(TARGET)
 
 $(TARGET): build/src/main.o build/src/Work.o build/src/Strings.o
 	$(CC) build/src/main.o build/src/Work.o build/src/Strings.o -o $@
