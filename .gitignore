@@ -32,5 +32,5 @@
 *.dSYM/
 *.su
 
-/bin/
-!/bin/.gitkeep
+bin/String
+bin/String_test
