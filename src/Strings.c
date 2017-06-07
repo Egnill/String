@@ -76,8 +76,14 @@ void number(char *q_2, int i_2, char token)
 	}
 	
 	if (j > j_2) {
-		++j_2;
+		while (number != 0) {
+			*(q + i_2 + j - j_2 + 1) = (number % 10) + '0';
+			number /= 10;
+			--j_2;
+		}
+		q_2 = q;
 	}
+
 	if (j == j_2) {
 		while (number != 0) {
 			*(q + i_2 + j_2) = (number % 10) + '0';
@@ -85,19 +91,19 @@ void number(char *q_2, int i_2, char token)
 			--j_2;
 		}
 		q_2 = q;
-	} else {
-		if (j_2 > j) {
-			i = slen(q + i_2, '\0');
-			*(q	+ i_2 + i + 1) = '\0';
-			for ( ; i > 0; --i) {
-				*(q + i_2 + i) = *(q + i_2 + i - 1);
-			}
-			while (number != 0) {
-				*(q + i_2 + j_2) = (number % 10) + '0';
-				number /= 10;
-				--j_2;
-			}
-			q_2 = q;
+	}
+	
+	if (j_2 > j) {
+		i = slen(q + i_2, '\0');
+		*(q	+ i_2 + i + 1) = '\0';
+		for ( ; i > 0; --i) {
+			*(q + i_2 + i) = *(q + i_2 + i - 1);
 		}
+		while (number != 0) {
+			*(q + i_2 + j_2) = (number % 10) + '0';
+			number /= 10;
+			--j_2;
+		}
+		q_2 = q;
 	}
 }

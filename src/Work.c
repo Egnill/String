@@ -51,20 +51,18 @@ void process(char *q)
 		if (*q == '/') {
 			sistem = 'l';
 		} else {
-			if (*q != '/') {
-				o = 1;
-			} else {
-				while (*(q + i) != ':') {
-					if ((*(q + 0) >= 'A' && *(q + 0) <= 'Z') && ((*(q + i) >= 'a' && *(q + i) <= 'z') || (*(q + i) >= 'A' && *(q + i) <= 'Z'))) {
+			while (*(q + i) != 92) {
+				if ((*(q + 0) >= 'A' && *(q + 0) <= 'Z')) {
+					if ((*(q + i) >= 'a' && *(q + i) <= 'z') || (*(q + i) >= 'A' && *(q + i) <= 'Z') || *(q + i) == ':') {
 						sistem = 'w';
 					}
-
-					if (*(q + i) != ':' && *(q + i + 1) == 92) {
-						o = 1;
-						break;
-					}
-					++i;
 				}
+
+				if (*(q + i) != ':' && *(q + i + 1) == 92) {
+					o = 1;
+					break;
+				}
+				++i;
 			}
 		}
 
@@ -137,7 +135,6 @@ void output(char *q, int l, int token, char sistem)
 void number_switch(char *q, char sistem)
 {
 	int i = 0;
-//printf("+\n");
 	if (sistem == 'l') {
 		while (*(q + i) != '\0') {
 			if (*(q + i) == '/'){
@@ -150,7 +147,6 @@ void number_switch(char *q, char sistem)
 	}
 	
 	if (sistem == 'w') {
-		//printf("+\n");
 		while (*(q + i) != '\0') {
 			if (*(q + i) == 92){
 				if (check_number(q, i, 92) == 0) {
